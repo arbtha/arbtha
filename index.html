@@ -24,12 +24,17 @@ html, body {
     color: #333;
 }
 
+/* إضافة هذا الكود لضبط ارتفاع الشاشة الحقيقي */
+:root {
+    --app-height: 100vh;
+}
+
 .container {
     width: 100vw; /* ضمان العرض الكامل */
     max-width: none; /* إلغاء أي قيود على العرض */
     margin: 0;
     padding: 0;
-    height: 100vh; /* ضمان ارتفاع الشاشة بالكامل */
+    height: var(--app-height); /* استخدام المتغير هنا */
     display: flex;
     flex-direction: column;
     overflow: hidden; /* لمنع التمرير داخل الحاوية الرئيسية */
@@ -40,7 +45,7 @@ html, body {
 /* **تعديل:** إزالة خاصية background-size: cover; من هنا لضمان أن حجمه يتبع حجم الموقع المعروض (ما لم يتم تغيير الخلفية داخل red-turn/blue-turn) */
 .game-screen {
     display: none;
-    height: 100%; /* تأخذ كامل ارتفاع الحاوية */
+    height: var(--app-height); /* استخدام المتغير هنا */
     flex-direction: column;
     /* تم إزالة background-size: cover; لعدم فرض حجم الصورة */
     background-position: center;
@@ -3210,8 +3215,16 @@ html, body {
         });
 
         console.log('🎮 مرابط - تم تحميل الكود بنجاح مع جميع التحسينات');
+
+        // حساب ارتفاع الشاشة الحقيقي (لحل مشكلة vh على الموبايل)
+function setAppHeight() {
+    const doc = document.documentElement;
+    doc.style.setProperty('--app-height', `${window.innerHeight}px`);
+}
+window.addEventListener('resize', setAppHeight);
+window.addEventListener('orientationchange', setAppHeight);
+setAppHeight(); // استدعاء عند التحميل الأولي
+
     </script>
  <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'991f36a8425f8308',t:'MTc2MTAzMzU0NS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
-
-
