@@ -1222,6 +1222,30 @@
         .team-choice:active {
             transform: translateY(-1px);
         }
+
+        .cards-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: auto; /* بدل من 100% */
+    padding: 10px;
+}
+
+.cards-grid {
+    grid-template-columns: repeat(5, auto); /* يجعل الأعمدة بحجم الكروت فقط */
+    grid-auto-rows: 1fr;
+    gap: 8px; /* يمكنك تقليله أو زيادته حسب رغبتك */
+    width: fit-content;
+    height: fit-content;
+    margin: 0 auto;
+}
+
+.card {
+    width: 90px;   /* أو أي مقاس مناسب حسب الشاشة */
+    height: 70px;
+    aspect-ratio: unset; /* لتعطيل التمدد الإجباري */
+}
+
     </style>
   <style>@view-transition { navigation: auto; }</style>
   <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
