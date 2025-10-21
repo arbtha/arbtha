@@ -246,55 +246,9 @@
             min-height: 0;
             overflow: hidden;
         }
+
         
-        /* حاوي البطاقات */
-        .cards-container {
-            flex: 1;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 5px;
-            min-height: 0;
-            background: rgba(255,255,255,0.1);
-            border-radius: 15px;
-            box-sizing: border-box;
-        }
-        
-        /* شبكة البطاقات */
-        .cards-grid {
-            display: grid;
-            grid-template-columns: repeat(5, 1fr);
-            grid-template-rows: repeat(5, 1fr);
-            gap: 5px;
-            width: 100%;
-            height: 100%;
-            padding: 5px;
-            box-sizing: border-box;
-        }
-        
-        .card {
-            background: url('BAGEALLBG.jpg') center/cover no-repeat;
-            border: none; 
-            border-radius: 8px;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-end;
-            align-items: center;
-            cursor: pointer;
-            transition: all 0.3s;
-            position: relative;
-            font-size: clamp(0.4rem, 1.2vw, 0.8rem);
-            font-weight: bold;
-            text-align: center;
-            padding: 4px;
-            box-sizing: border-box;
-            color: #000000;
-            text-shadow: none; 
-            overflow: hidden;
-            min-height: 0;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            aspect-ratio: 3/2; 
-        }
+
         
         /* تحسينات لسطح المكتب */
         @media (min-width: 1024px) {
@@ -315,31 +269,7 @@
                 font-size: 0.8rem;
             }
             
-            .cards-container {
-                flex: 1;
-                background: rgba(255,255,255,0.1);
-                border-radius: 15px;
-                padding: 5px;
-                margin-bottom: 8px;
-                overflow: hidden;
-                display: flex;
-                flex-direction: column;
-            }
-            
-            .cards-grid {
-                height: 100%;
-                width: 100%;
-                padding: 5px;
-                overflow: hidden;
-                box-sizing: border-box;
-            }
-            
-            .card {
-                font-size: clamp(0.5rem, 1vw, 0.8rem);
-                padding: 5px;
-                border-radius: 10px;
-                box-shadow: 0 3px 6px rgba(0,0,0,0.15);
-            }
+
             
             .bottom-area {
                 height: 130px;
@@ -1137,28 +1067,6 @@
                 font-size: 2rem;
             }
             
-            .cards-container {
-                flex: 1;
-                padding: 8px;
-                margin-bottom: 6px;
-            }
-            
-            .cards-grid {
-                gap: 5px;
-                height: 100%;
-                width: 100%;
-                overflow: hidden;
-                padding: 25px;
-                box-sizing: border-box;
-            }
-            
-            .card {
-                font-size: clamp(0.35rem, 2vw, 0.6rem);
-                padding: 3px;
-                border-radius: 6px;
-                box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            }
-            
             .bottom-area {
                 height: 150px;
                 flex-shrink: 0;
@@ -1223,124 +1131,75 @@
             transform: translateY(-1px);
         }
 
-        .cards-container {
+        /* ✅ تعديل منطقة الكروت بالكامل */
+.cards-container {
+    flex: 1;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: auto; /* بدل من 100% */
-    padding: 10px;
+    padding: 0;
+    margin: 0;
+    background: rgba(255,255,255,0.1);
+    border-radius: 15px;
+    box-sizing: border-box;
 }
 
 .cards-grid {
-    grid-template-columns: repeat(5, auto); /* يجعل الأعمدة بحجم الكروت فقط */
-    grid-auto-rows: 1fr;
-    gap: 8px; /* يمكنك تقليله أو زيادته حسب رغبتك */
-    width: fit-content;
-    height: fit-content;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 8px;
+    width: 95vw;
+    max-width: 550px;
+    justify-items: center;
+    align-items: center;
     margin: 0 auto;
 }
 
 .card {
-    width: 90px;   /* أو أي مقاس مناسب حسب الشاشة */
-    height: 70px;
-    aspect-ratio: unset; /* لتعطيل التمدد الإجباري */
+    background: url('BAGEALLBG.jpg') center/cover no-repeat;
+    border: none;
+    border-radius: 10px;
+    aspect-ratio: 3 / 2; /* 👈 نسبة 3:2 مضبوطة */
+    width: 100%;
+    max-width: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    font-weight: bold;
+    font-size: clamp(0.5rem, 1.2vw, 0.9rem);
+    color: #000;
+    text-align: center;
+    padding: 4px;
+    box-sizing: border-box;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
 }
 
-.cards-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 0;
-  height: auto;
-  margin-top: 5px;
-  margin-bottom: 5px;
+.card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
 }
 
-.cards-grid {
-  display: grid;
-  grid-template-columns: repeat(5, minmax(60px, 1fr));
-  grid-auto-rows: minmax(55px, auto);
-  gap: 6px;
-  width: fit-content;
-  margin: auto;
-  justify-content: center;
-}
+/* ألوان البطاقات */
+.card.red { background: #dc3545; color: white; }
+.card.blue { background: #007bff; color: white; }
+.card.black { background: #343a40; color: white; }
+.card.neutral { background: #f5deb3; color: #000; }
 
-.card {
-  width: 68px;
-  height: 55px;
-  aspect-ratio: unset;
-  border-radius: 10px;
-  font-size: 0.8rem;
-}
-
-/* للموبايل */
+/* استجابة للموبايل */
 @media (max-width: 600px) {
-  .cards-grid {
-    grid-template-columns: repeat(5, minmax(45px, 1fr));
-    gap: 4px;
-  }
-  .card {
-    width: 58px;
-    height: 48px;
-    font-size: 0.7rem;
-  }
+    .cards-grid {
+        gap: 5px;
+        width: 90vw;
+        max-width: 380px;
+    }
+    .card {
+        aspect-ratio: 3 / 2;
+        max-width: 70px;
+        font-size: 0.7rem;
+    }
 }
-
-
-        /* ضبط منطقة الكروت */
-.cards-container {
-  flex: 1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 0;
-  margin: 0;
-}
-
-/* شبكة الكروت */
-.cards-grid {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 6px;
-  width: 95vw;
-  max-width: 500px;
-  aspect-ratio: 3 / 2; /* للحفاظ على التناسق العام للشبكة */
-  justify-items: center;
-  align-items: center;
-  margin: 0 auto;
-}
-
-/* الكروت بنسبة 3:2 */
-.card {
-  aspect-ratio: 3 / 2; /* يضبط النسبة المطلوبة */
-  width: 100%;
-  max-width: 100px; /* يمكنك تعديلها حسب حجم الشاشة */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: clamp(0.5rem, 2vw, 0.9rem);
-  padding: 4px;
-  border-radius: 10px;
-  box-sizing: border-box;
-}
-
-/* للموبايل */
-@media (max-width: 600px) {
-  .cards-grid {
-    gap: 5px;
-    width: 90vw;
-    max-width: 360px;
-  }
-
-  .card {
-    aspect-ratio: 3 / 2;
-    max-width: 70px;
-    font-size: 0.7rem;
-  }
-}
-
-
 
     </style>
   <style>@view-transition { navigation: auto; }</style>
