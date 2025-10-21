@@ -37,11 +37,12 @@ html, body {
 }
 
 /* 2. شاشة اللعبة (لتطبيق التخطيط على الأقسام) */
+/* **تعديل:** إزالة خاصية background-size: cover; من هنا لضمان أن حجمه يتبع حجم الموقع المعروض (ما لم يتم تغيير الخلفية داخل red-turn/blue-turn) */
 .game-screen {
     display: none;
     height: 100%; /* تأخذ كامل ارتفاع الحاوية */
     flex-direction: column;
-    background-size: cover;
+    /* تم إزالة background-size: cover; لعدم فرض حجم الصورة */
     background-position: center;
     background-repeat: no-repeat;
     transition: background-image 0.5s ease;
@@ -51,10 +52,12 @@ html, body {
 
 .game-screen.red-turn {
     background-image: url('redteamturn.jpg');
+    background-size: cover; /* تم إعادتها هنا فقط لتخصيص الخلفية الخاصة بالفريق */
 }
 
 .game-screen.blue-turn {
     background-image: url('blueteamturn.jpg');
+    background-size: cover; /* تم إعادتها هنا فقط لتخصيص الخلفية الخاصة بالفريق */
 }
 
 /* خلفيات الفرق المخصصة لأجهزة الكمبيوتر وسطح المكتب */
@@ -140,7 +143,9 @@ html, body {
   max-width: 100px;
   display: flex;
   justify-content: center;
-  align-items: center;
+  /* **تعديل:** تنزيل الكلمات 6-7 درجات لجهة الأسفل */
+  align-items: flex-end; /* لمحاذاة النص للأسفل */
+  padding-bottom: 6px; /* **الحاسم:** لإضافة مسافة من الأسفل (يمكنك تغييرها من 6px إلى 7px إذا أردت) */
   flex-direction: column;
   font-weight: bold;
   font-size: clamp(0.5rem, 1.2vw, 0.9rem);
@@ -262,8 +267,8 @@ html, body {
 .bottom-area {
     display: flex;
     gap: 5px;
-    /* الحاسم: زيادة الارتفاع لزيادة طول القوائم */
-    height: 25vh; 
+    /* **تعديل:** زيادة الارتفاع لزيادة طول القوائم (تم الرفع من 25vh إلى 30vh) */
+    height: 30vh; 
     /* الحاسم: يضمن بقاء الشريط السفلي ثابتاً ولا ينكمش */
     flex-shrink: 0; 
 }
@@ -273,7 +278,7 @@ html, body {
     flex: 1;
     border-radius: 15px;
     padding: 15px;
-    /* الحاسم: لأخذ كامل ارتفاع الشريط السفلي (25vh) */
+    /* الحاسم: لأخذ كامل ارتفاع الشريط السفلي (30vh) */
     height: 100%; 
     /* مهم جداً: للسماح بالتمرير داخل القائمة فقط */
     overflow-y: auto; 
@@ -360,6 +365,8 @@ html, body {
     margin-bottom: 10px;
     text-align: center;
     font-size: 1rem;
+    /* **تعديل:** لون العنوان أسود */
+    color: #000; 
 }
 
 .log-entry {
@@ -369,6 +376,8 @@ html, body {
     border-radius: 8px;
     font-size: 0.8rem;
     border-left: 4px solid #ddd;
+    /* **تعديل:** لون النص داخل سجل الأحداث أسود بالكامل */
+    color: #000; 
 }
 
 .log-entry.red {
@@ -693,7 +702,7 @@ html, body {
     }
     
     .bottom-area {
-        /* تم تثبيت الارتفاع في القاعدة الأساسية (25vh) */
+        /* تم تثبيت الارتفاع في القاعدة الأساسية (30vh) */
         flex-shrink: 0;
     }
     
@@ -1062,6 +1071,8 @@ html, body {
     border-left: 4px solid #ddd;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     transition: all 0.2s;
+    /* **تعديل:** لون النص أسود بالكامل في النافذة المنبثقة أيضاً */
+    color: #000;
 }
 
 .log-modal .log-entry:hover {
