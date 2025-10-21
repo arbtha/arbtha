@@ -1131,75 +1131,82 @@
             transform: translateY(-1px);
         }
 
-        /* ✅ تعديل منطقة الكروت بالكامل */
+        /* ✅ تعديل منطقة الكروت النهائية */
 .cards-container {
-    flex: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 0;
-    margin: 0;
-    background: rgba(255,255,255,0.1);
-    border-radius: 15px;
-    box-sizing: border-box;
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+  margin: 0;
+  background: rgba(255,255,255,0.1);
+  border-radius: 15px;
+  box-sizing: border-box;
+
+  /* 👇 هذا السطرين هم الأهم لإزالة الفراغ */
+  height: auto;
+  flex-grow: 0;
 }
 
+/* شبكة الكروت */
 .cards-grid {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 8px;
-    width: 95vw;
-    max-width: 550px;
-    justify-items: center;
-    align-items: center;
-    margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 8px;
+  width: fit-content;
+  justify-items: center;
+  align-items: center;
+  margin: 0 auto;
+
+  /* 👇 منع تمدد الشبكة عموديًا */
+  height: auto;
 }
 
+/* الكرت بنسبة 3:2 */
 .card {
-    background: url('BAGEALLBG.jpg') center/cover no-repeat;
-    border: none;
-    border-radius: 10px;
-    aspect-ratio: 3 / 2; /* 👈 نسبة 3:2 مضبوطة */
-    width: 100%;
-    max-width: 100px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    font-weight: bold;
-    font-size: clamp(0.5rem, 1.2vw, 0.9rem);
-    color: #000;
-    text-align: center;
-    padding: 4px;
-    box-sizing: border-box;
-    cursor: pointer;
-    transition: transform 0.2s, box-shadow 0.2s;
+  background: url('BAGEALLBG.jpg') center/cover no-repeat;
+  border: none;
+  border-radius: 10px;
+  aspect-ratio: 3 / 2;
+  width: 100%;
+  max-width: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  font-weight: bold;
+  font-size: clamp(0.5rem, 1.2vw, 0.9rem);
+  color: #000;
+  text-align: center;
+  padding: 4px;
+  box-sizing: border-box;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
 }
 
 .card:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
 }
 
-/* ألوان البطاقات */
+/* ألوان الكروت */
 .card.red { background: #dc3545; color: white; }
 .card.blue { background: #007bff; color: white; }
 .card.black { background: #343a40; color: white; }
 .card.neutral { background: #f5deb3; color: #000; }
 
-/* استجابة للموبايل */
+/* للموبايل */
 @media (max-width: 600px) {
-    .cards-grid {
-        gap: 5px;
-        width: 90vw;
-        max-width: 380px;
-    }
-    .card {
-        aspect-ratio: 3 / 2;
-        max-width: 70px;
-        font-size: 0.7rem;
-    }
+  .cards-grid {
+    gap: 5px;
+  }
+  .card {
+    aspect-ratio: 3 / 2;
+    max-width: 70px;
+    font-size: 0.7rem;
+  }
 }
+
 
     </style>
   <style>@view-transition { navigation: auto; }</style>
