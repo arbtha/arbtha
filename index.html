@@ -146,16 +146,17 @@ html, body {
   max-width: 100px;
   display: flex;
   flex-direction: column;
-  justify-content: flex-end; /* **التعديل الجديد:** لمحاذاة النص للأسفل */
-  align-items: center; /* **التصحيح:** لضمان توسيط النص أفقياً */
-  padding-bottom: 7px; /* **التعديل:** تم وضع 7 بكسلات ليكون الموضع أفضل */
+  justify-content: flex-end; /* لمحاذاة النص للأسفل */
+  align-items: center; /* لضمان توسيط النص أفقياً */
+  /* التعديل: تم تغيير 7px إلى 5px لتنزيل الكلمات للأسفل درجتين */
+  padding-bottom: 5px; 
   font-weight: bold;
   font-size: clamp(0.5rem, 1.2vw, 0.9rem);
   color: #000;
   text-align: center;
-  padding-left: 4px; /* تم ترك البادينج الأفقي */
+  padding-left: 4px;
   padding-right: 4px;
-  padding-top: 4px; /* تم ترك البادينج العلوي */
+  padding-top: 4px;
   box-sizing: border-box;
   cursor: pointer;
   transition: transform 0.2s, box-shadow 0.2s;
@@ -228,8 +229,9 @@ html, body {
 
 /* التصويتات المصغرة داخل الكروت */
 .voters {
-    font-size: 0.5rem; /* تم تصغير الخط */
-    margin-top: 1px; /* تم تصغير الهامش */
+    /* التعديل: تصغير الخط أكثر لتصغير التصويتات */
+    font-size: 0.4rem; 
+    margin-top: 1px;
     align-self: stretch;
     text-align: center;
     line-height: 1; /* لضغط المساحة العمودية */
@@ -237,8 +239,10 @@ html, body {
 
 .voter {
     display: inline-block;
-    margin: 0 1px; /* تصغير الهامش بين المصوتين */
-    padding: 1px 3px; /* تصغير مساحة الحشوة */
+    /* التعديل: تصغير الهامش بين المصوتين */
+    margin: 0 0.5px; 
+    /* التعديل: تصغير مساحة الحشوة */
+    padding: 0 2px; 
     border-radius: 3px; 
     color: white;
 }
@@ -308,15 +312,15 @@ html, body {
 
 .team-score {
     position: absolute;
-    top: 10px;
-    left: 10px;
+    top: 5px; /* تم تقليص المسافة العلوية */
+    left: 5px; /* تم تقليص المسافة الجانبية */
     background: rgba(255,255,255,0.2);
     color: white;
-    padding: 8px 12px;
-    border-radius: 10px;
+    padding: 4px 8px; /* تم تقليص الحشو الداخلي */
+    border-radius: 8px;
     font-weight: bold;
-    font-size: 1.1rem;
-    border: 2px solid rgba(255,255,255,0.3);
+    font-size: 0.9rem; /* تم تقليص حجم الخط */
+    border: 1px solid rgba(255,255,255,0.3); /* تم تقليص سماكة الإطار */
 }
 
 .team-section {
@@ -2377,10 +2381,13 @@ function clearAllVotes() {
             }
         }
 
-        // تبديل الدور
+// تبديل الدور
         function switchTurn() {
             const nextTeam = gameState.currentTeam === 'red' ? 'blue' : 'red';
             const nextTeamName = nextTeam === 'red' ? 'الأحمر' : 'الأزرق';
+            
+            // ✅ السطر الجديد: مسح كافة التصويتات من قاعدة البيانات عند تبديل الدور
+            database.ref('rooms/' + roomId + '/gameState/cardVotes').remove(); 
             
             database.ref(`rooms/${roomId}`).update({
                 currentTeam: nextTeam,
@@ -2498,17 +2505,17 @@ function clearAllVotes() {
             numberSelect.value = '1';
         }
 
-// إنهاء الدور
+        // إنهاء الدور
 function endTurn() {
     if (currentPlayer.team === gameState.currentTeam && currentPlayer.role === 'player') {
         
-        // 1. مسح جميع التصويتات الحالية (المطلوب)
-        clearAllVotes(); 
+        // 1. مسح جميع التصويتات الحالية (تم إزالته، لأن switchTurn ستقوم به)
+        // clearAllVotes(); 
         
         const currentTeamName = gameState.currentTeam === 'red' ? 'الأحمر' : 'الأزرق';
         addToLog(`الفريق ${currentTeamName} أنهى دوره`, gameState.currentTeam);
         
-        // 2. تبديل الدور
+        // 2. تبديل الدور (وهي التي ستمسح التصويتات الآن)
         switchTurn();
     }
 }
