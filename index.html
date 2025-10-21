@@ -1223,68 +1223,58 @@
             transform: translateY(-1px);
         }
 
-        .cards-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: auto; /* بدل من 100% */
-    padding: 10px;
-}
-
-.cards-grid {
-    grid-template-columns: repeat(5, auto); /* يجعل الأعمدة بحجم الكروت فقط */
-    grid-auto-rows: 1fr;
-    gap: 8px; /* يمكنك تقليله أو زيادته حسب رغبتك */
-    width: fit-content;
-    height: fit-content;
-    margin: 0 auto;
-}
-
-.card {
-    width: 90px;   /* أو أي مقاس مناسب حسب الشاشة */
-    height: 70px;
-    aspect-ratio: unset; /* لتعطيل التمدد الإجباري */
-}
+        /* ضبط منطقة الكروت */
 .cards-container {
+  flex: 1;
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 0;
-  height: auto;
-  margin-top: 5px;
-  margin-bottom: 5px;
+  margin: 0;
 }
 
+/* شبكة الكروت */
 .cards-grid {
   display: grid;
-  grid-template-columns: repeat(5, minmax(60px, 1fr));
-  grid-auto-rows: minmax(55px, auto);
+  grid-template-columns: repeat(5, 1fr);
   gap: 6px;
-  width: fit-content;
-  margin: auto;
-  justify-content: center;
+  width: 95vw;
+  max-width: 500px;
+  aspect-ratio: 3 / 2; /* للحفاظ على التناسق العام للشبكة */
+  justify-items: center;
+  align-items: center;
+  margin: 0 auto;
 }
 
+/* الكروت بنسبة 3:2 */
 .card {
-  width: 68px;
-  height: 55px;
-  aspect-ratio: unset;
+  aspect-ratio: 3 / 2; /* يضبط النسبة المطلوبة */
+  width: 100%;
+  max-width: 100px; /* يمكنك تعديلها حسب حجم الشاشة */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: clamp(0.5rem, 2vw, 0.9rem);
+  padding: 4px;
   border-radius: 10px;
-  font-size: 0.8rem;
+  box-sizing: border-box;
 }
 
 /* للموبايل */
 @media (max-width: 600px) {
   .cards-grid {
-    grid-template-columns: repeat(5, minmax(45px, 1fr));
-    gap: 4px;
+    gap: 5px;
+    width: 90vw;
+    max-width: 360px;
   }
+
   .card {
-    width: 58px;
-    height: 48px;
+    aspect-ratio: 3 / 2;
+    max-width: 70px;
     font-size: 0.7rem;
   }
 }
+
 
 
     </style>
