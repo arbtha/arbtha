@@ -1223,6 +1223,71 @@
             transform: translateY(-1px);
         }
 
+        .cards-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: auto; /* بدل من 100% */
+    padding: 10px;
+}
+
+.cards-grid {
+    grid-template-columns: repeat(5, auto); /* يجعل الأعمدة بحجم الكروت فقط */
+    grid-auto-rows: 1fr;
+    gap: 8px; /* يمكنك تقليله أو زيادته حسب رغبتك */
+    width: fit-content;
+    height: fit-content;
+    margin: 0 auto;
+}
+
+.card {
+    width: 90px;   /* أو أي مقاس مناسب حسب الشاشة */
+    height: 70px;
+    aspect-ratio: unset; /* لتعطيل التمدد الإجباري */
+}
+
+.cards-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+  height: auto;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(60px, 1fr));
+  grid-auto-rows: minmax(55px, auto);
+  gap: 6px;
+  width: fit-content;
+  margin: auto;
+  justify-content: center;
+}
+
+.card {
+  width: 68px;
+  height: 55px;
+  aspect-ratio: unset;
+  border-radius: 10px;
+  font-size: 0.8rem;
+}
+
+/* للموبايل */
+@media (max-width: 600px) {
+  .cards-grid {
+    grid-template-columns: repeat(5, minmax(45px, 1fr));
+    gap: 4px;
+  }
+  .card {
+    width: 58px;
+    height: 48px;
+    font-size: 0.7rem;
+  }
+}
+
+
         /* ضبط منطقة الكروت */
 .cards-container {
   flex: 1;
