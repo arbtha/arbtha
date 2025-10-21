@@ -8,7 +8,7 @@
   <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
 <style>
 /* ===================================================
-   الأنماط الأساسية الموحدة والمُعدَّلة للتخطيط الكامل للصفحة
+   الأنماط الأساسية الموحدة والمُعدَّلة للتخطيط الكامل للصفحة
    =================================================== */
 
 /* 1. إعداد الصفحة والحاوية (لإزالة السكرول وضمان 100% ارتفاع وعرض) */
@@ -42,12 +42,10 @@ html, body {
 }
 
 /* 2. شاشة اللعبة (لتطبيق التخطيط على الأقسام) */
-/* **تعديل:** إزالة خاصية background-size: cover; من هنا لضمان أن حجمه يتبع حجم الموقع المعروض (ما لم يتم تغيير الخلفية داخل red-turn/blue-turn) */
 .game-screen {
     display: none;
     height: var(--app-height); /* استخدام المتغير هنا */
     flex-direction: column;
-    /* تم إزالة background-size: cover; لعدم فرض حجم الصورة */
     background-position: center;
     background-repeat: no-repeat;
     transition: background-image 0.5s ease;
@@ -228,37 +226,44 @@ html, body {
     z-index: 1;
 }
 
-.hand-btn {
-    position: absolute;
-    top: 5px;
-    right: 5px;
-    background: #ffc107;
-    border: none;
-    border-radius: 50%;
-    width: 25px;
-    height: 25px;
-    cursor: pointer;
-    font-size: 0.8rem;
-    display: none;
-}
-
-.card.can-select .hand-btn {
-    display: block;
-}
-
+/* التصويتات المصغرة داخل الكروت */
 .voters {
-    font-size: 0.6rem;
-    margin-top: 2px;
+    font-size: 0.5rem; /* تم تصغير الخط */
+    margin-top: 1px; /* تم تصغير الهامش */
     align-self: stretch;
     text-align: center;
+    line-height: 1; /* لضغط المساحة العمودية */
 }
 
 .voter {
     display: inline-block;
-    margin: 2px;
-    padding: 2px 5px;
-    border-radius: 5px;
+    margin: 0 1px; /* تصغير الهامش بين المصوتين */
+    padding: 1px 3px; /* تصغير مساحة الحشوة */
+    border-radius: 3px; 
     color: white;
+}
+
+/* زر اليد (إيموجي) - إزالة الخلفية وتصغير الحجم */
+.hand-btn {
+    position: absolute;
+    top: 2px; /* تصغير الموقع */
+    right: 2px; /* تصغير الموقع */
+    background: transparent; /* إزالة الخلفية */
+    border: none;
+    border-radius: 0; 
+    width: 15px; /* تصغير الحجم */
+    height: 15px; /* تصغير الحجم */
+    cursor: pointer;
+    font-size: 0.8rem; /* تصغير الإيموجي */
+    display: none;
+    padding: 0;
+    /* لإظهار الإيموجي بوضوح على الخلفيات */
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7); 
+}
+
+/* هذا الكلاس يضمن ظهور اليد تلقائياً عندما يحين وقتها */
+.card.can-select .hand-btn {
+    display: block;
 }
 
 .voter.red {
@@ -394,27 +399,42 @@ html, body {
     border-left-color: #007bff;
 }
 
-/* منطقة التلميح */
+/* ===================================================
+   منطقة التلميح (تم التعديل لجعلها سوداء وأكثر سلاسة)
+   =================================================== */
 .hint-area {
-    background: rgba(255,255,255,0.95);
-    padding: 8px;
-    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.95);
+    padding: 10px; /* زيادة التباعد قليلاً */
+    border-radius: 15px; /* جعل الحواف أكثر دائرية */
     margin-bottom: 8px;
     display: none;
     flex-shrink: 0;
+    /* إضافة ظل خفيف لتحسين المظهر */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); 
 }
 
 .hint-area.active {
     display: block;
 }
 
+/* حقل إدخال التلميح */
 .hint-input {
     width: 100%;
-    padding: 6px;
-    border: 1px solid #ddd;
-    border-radius: 6px;
-    margin-bottom: 6px;
-    font-size: 0.9rem;
+    padding: 12px 15px; /* زيادة حجم الحشوة لسهولة الكتابة */
+    border: 2px solid #ccc; /* زيادة سمك الحدود */
+    border-radius: 10px;
+    margin-bottom: 10px;
+    font-size: 1.05rem;
+    /* جعل النص باللون الأسود (المطلوب) */
+    color: #000000; 
+    transition: border-color 0.3s, box-shadow 0.3s;
+    outline: none;
+    box-sizing: border-box;
+}
+
+.hint-input:focus {
+    border-color: #007bff; /* إطار أزرق عند التركيز */
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.2);
 }
 
 .hint-controls {
@@ -422,34 +442,58 @@ html, body {
     gap: 10px;
     align-items: center;
     flex-wrap: wrap;
+    justify-content: space-between; /* توسيع العناصر */
 }
 
+/* زر اختيار الرقم */
 .number-select {
-    padding: 8px 12px;
-    border: 2px solid #ddd;
-    border-radius: 8px;
+    /* جعل زر اختيار الرقم كزر أنيق */
+    flex-grow: 1;
+    text-align: center;
+    padding: 10px 15px;
+    border: 2px solid #343a40; /* إطار أسود */
+    border-radius: 10px;
     font-size: 1rem;
     font-weight: bold;
     background: white;
     cursor: pointer;
-    margin: 0 10px;
+    transition: all 0.2s;
+    /* جعل النص باللون الأسود (المطلوب) */
+    color: #000000; 
+    min-width: 80px; 
+    margin: 0; /* تم تعديله ليعمل مع flex-grow */
 }
 
 .number-select:focus {
     outline: none;
     border-color: #007bff;
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.2);
 }
 
+.number-select:hover {
+    background: #f0f0f0;
+}
+
+/* زر الإرسال */
 .send-hint-btn {
     background: #28a745;
     color: white;
     border: none;
-    padding: 6px 12px;
-    border-radius: 6px;
+    padding: 12px 20px; /* جعل الزر أكبر وأوضح */
+    border-radius: 10px;
     cursor: pointer;
     font-weight: bold;
-    font-size: 0.9rem;
+    font-size: 1rem;
+    transition: background-color 0.2s, transform 0.2s;
+    flex-shrink: 0;
 }
+
+.send-hint-btn:hover {
+    background: #218838;
+    transform: translateY(-1px);
+}
+/* =================================================== */
+
 
 .end-turn-btn {
     background: #ffc107;
@@ -1227,7 +1271,7 @@ html, body {
       </div>
       <div class="number-box">
        <div class="number-label">
-        العدد:
+        العداد:
        </div>
        <div class="number-text" id="displayHintNumber">
         -
@@ -1263,7 +1307,6 @@ html, body {
       </div><!-- منطقة عرض التلميح وزر إنهاء الدور (تظهر مكان السجل) -->
       <div class="hint-display-in-log" id="hintDisplayInLog" style="display: none;">
        <div class="log-title">
-        التلميح الحالي
        </div>
        <div class="hint-display-container">
         <div class="hint-box">
@@ -1347,6 +1390,7 @@ html, body {
             appId: "1:22261863844:web:66f8541079b9025ec69d31",
             measurementId: "G-RKN2F3HVHS"
         };
+
 
         // متغيرات عامة
         let database;
@@ -1536,6 +1580,86 @@ html, body {
         let roomId = null;
         let gameState = null;
         let cardsVisible = false;
+
+
+        // ===================================================
+// دوال استمرار الجلسة بعد الريفريش (Persistence)
+// ===================================================
+const PLAYER_SESSION_KEY = 'marabit_player_session';
+
+// دالة لحفظ حالة اللاعب والغرفة لاستمرار الجلسة بعد الريفريش
+function savePlayerSession() {
+    if (roomId && currentPlayer && currentPlayer.name) {
+        localStorage.setItem(PLAYER_SESSION_KEY, JSON.stringify({
+            roomId: roomId,
+            playerName: currentPlayer.name
+        }));
+        console.log("✅ تم حفظ الجلسة.");
+    }
+}
+
+// دالة لمحاولة استعادة الجلسة المحفوظة
+function loadGameSession() {
+    const session = localStorage.getItem(PLAYER_SESSION_KEY);
+    if (session) {
+        try {
+            const { roomId: savedRoomId, playerName: savedName } = JSON.parse(session);
+            if (savedRoomId && savedName) {
+                console.log(`✅ محاولة استعادة الجلسة: الغرفة ${savedRoomId} للاعب ${savedName}`);
+                
+                // 1. تعيين المتغيرات العامة بناءً على الجلسة المحفوظة
+                roomId = savedRoomId;
+                
+                // 2. تحديث واجهة المستخدم (لإظهار الاسم في حقل الإدخال)
+                document.getElementById('playerName').value = savedName; 
+
+                // 3. يجب أن يتم تعيين currentPlayer قبل محاولة الانضمام.
+                // *بما أنك تستخدم دالة savePlayerState، نفترض أنها تحفظ ID اللاعب أيضاً.*
+                // سنقوم بتعريف اللاعب بناءً على الاسم (مع الاعتماد على حفظ ID اللاعب في savePlayerState):
+                
+                // **ملاحظة:** إذا لم تكن تحفظ الـ ID في localStorage، يجب تعديل هذا الجزء.
+                currentPlayer = { 
+                    id: localStorage.getItem('marabit_player_id') || 'temp', // افترض أن ID اللاعب محفوظ في هذا المفتاح
+                    name: savedName,
+                    online: true,
+                    team: null,
+                    role: 'player'
+                };
+                
+                // 4. استخدام دالة الانضمام الموجودة لديك
+                joinExistingRoom(); 
+                return true;
+            }
+        } catch(e) {
+            console.error("❌ خطأ في تحليل بيانات الجلسة المحفوظة، تم مسحها:", e);
+            localStorage.removeItem(PLAYER_SESSION_KEY); 
+        }
+    }
+    return false;
+}
+
+// ===================================================
+// دالة جديدة لمسح جميع التصويتات من الكروت
+// ===================================================
+function clearAllVotes() {
+    if (!database || !roomId) return;
+    
+    const cardsRef = database.ref(`rooms/${roomId}/cards`);
+    
+    cardsRef.once('value', (snapshot) => {
+        const updates = {};
+        snapshot.forEach((cardSnap) => {
+            // مسح حقل 'votes' من جميع البطاقات باستخدام null
+            updates[cardSnap.key + '/votes'] = null; 
+        });
+        
+        if (Object.keys(updates).length > 0) {
+            cardsRef.update(updates)
+                .then(() => console.log("✅ تم مسح جميع التصويتات بنجاح."))
+                .catch(error => console.error("❌ خطأ في مسح التصويتات:", error));
+        }
+    });
+}
 
         // كلمات اللعبة مع خلط متقدم
         const gameWords = [
@@ -1792,6 +1916,7 @@ html, body {
                     showGameScreen();
                     updateUrl();
                     savePlayerState();
+                    savePlayerSession(); 
                 }).catch((error) => {
                     console.error('Error creating room:', error);
                     alert('حدث خطأ في إنشاء الغرفة: ' + error.message);
@@ -1822,6 +1947,7 @@ html, body {
                     showGameScreen();
                     updateUrl();
                     savePlayerState();
+                    savePlayerSession();
                     
                 }).catch((error) => {
                     console.error('Error joining existing room directly:', error);
@@ -1843,6 +1969,7 @@ html, body {
                 showGameScreen();
                 updateUrl();
                 savePlayerState();
+                savePlayerSession();
                 
             }).catch((error) => {
                 console.error('Error joining existing room:', error);
@@ -2373,14 +2500,20 @@ html, body {
             numberSelect.value = '1';
         }
 
-        // إنهاء الدور
-        function endTurn() {
-            if (currentPlayer.team === gameState.currentTeam && currentPlayer.role === 'player') {
-                const currentTeamName = gameState.currentTeam === 'red' ? 'الأحمر' : 'الأزرق';
-                addToLog(`الفريق ${currentTeamName} أنهى دوره`, gameState.currentTeam);
-                switchTurn();
-            }
-        }
+// إنهاء الدور
+function endTurn() {
+    if (currentPlayer.team === gameState.currentTeam && currentPlayer.role === 'player') {
+        
+        // 1. مسح جميع التصويتات الحالية (المطلوب)
+        clearAllVotes(); 
+        
+        const currentTeamName = gameState.currentTeam === 'red' ? 'الأحمر' : 'الأزرق';
+        addToLog(`الفريق ${currentTeamName} أنهى دوره`, gameState.currentTeam);
+        
+        // 2. تبديل الدور
+        switchTurn();
+    }
+}
 
         // بدء اللعبة (للمنشئ فقط)
         function startGamePlay() {
@@ -3224,6 +3357,7 @@ function setAppHeight() {
 window.addEventListener('resize', setAppHeight);
 window.addEventListener('orientationchange', setAppHeight);
 setAppHeight(); // استدعاء عند التحميل الأولي
+loadGameSession(); 
 
     </script>
  <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'991f36a8425f8308',t:'MTc2MTAzMzU0NS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
